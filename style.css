@@ -1,0 +1,316 @@
+:root {
+  --background: #705e63;
+  --tile-empty: #625459;
+  --tile-border: #4a4045;
+  --keyboard: #4b4146;
+  --text: #fffaff;
+  --correct: #398b64;
+  --present: #c9a343;
+  --absent: #484044;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.topbar {
+  width: min(100%, 940px);
+  margin: 0 auto;
+  padding: 8px 18px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(30px, 5.5vw, 54px);
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.top-left,
+.top-right {
+  display: flex;
+  gap: 8px;
+}
+
+.top-right {
+  justify-content: flex-end;
+}
+
+.icon-button {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #c1b3b8;
+  border-radius: 11px;
+  background: transparent;
+  color: #d5cbd0;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background: #ffffff16;
+}
+
+main {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 0 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  min-height: 26px;
+  margin: 6px 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.board {
+  width: min(100%, 605px);
+  margin: auto auto 34px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.tile {
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 11px;
+  background: var(--tile-empty);
+  color: var(--text);
+  font-size: clamp(24px, 6.5vw, 52px);
+  font-weight: 800;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.tile.active {
+  border: 5px solid var(--tile-border);
+}
+
+.tile.filled {
+  border-color: #4b4146;
+  animation: pop 100ms ease-out;
+}
+
+.tile.correct {
+  background: var(--correct);
+  border-color: var(--correct);
+}
+
+.tile.present {
+  background: var(--present);
+  border-color: var(--present);
+}
+
+.tile.absent {
+  background: var(--absent);
+  border-color: var(--absent);
+}
+
+@keyframes pop {
+  0% { transform: scale(.90); }
+  100% { transform: scale(1); }
+}
+
+.keyboard {
+  width: 100%;
+  margin: auto auto 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.key-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.key {
+  flex: 1;
+  min-width: 0;
+  height: clamp(45px, 11.5vw, 76px);
+  max-width: 68px;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: var(--keyboard);
+  color: white;
+  font-size: clamp(15px, 3.2vw, 28px);
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+
+.key:active {
+  transform: scale(.94);
+}
+
+.middle-row {
+  padding: 0 3%;
+}
+
+.bottom-row {
+  padding: 0 7%;
+}
+
+.key.correct {
+  background: var(--correct);
+}
+
+.key.present {
+  background: var(--present);
+}
+
+.key.absent {
+  background: var(--absent);
+}
+
+.key-action {
+  flex: 1.2;
+  margin-left: 8px;
+}
+
+.key-enter {
+  flex: 2.8;
+  max-width: 190px;
+  margin-left: 10px;
+  font-size: clamp(13px, 2.8vw, 22px);
+}
+
+dialog {
+  width: min(90%, 410px);
+  padding: 0;
+  border: 1px solid #9a858d;
+  border-radius: 16px;
+  background: #594a50;
+  color: white;
+}
+
+dialog::backdrop {
+  background: #171216bb;
+}
+
+.modal-content {
+  padding: 25px;
+  line-height: 1.6;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.close-button {
+  float: right;
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.example {
+  display: inline-flex;
+  gap: 5px;
+  margin: 5px 0;
+}
+
+.example span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: var(--absent);
+  font-weight: bold;
+}
+
+.example .correct {
+  background: var(--correct);
+}
+
+.example .present {
+  background: var(--present);
+}
+
+@media (min-width: 700px) {
+  main {
+    min-height: calc(100vh - 66px);
+  }
+
+  .board {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .keyboard {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .topbar {
+    padding: 8px 10px;
+  }
+
+  .icon-button {
+    width: 38px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .top-left,
+  .top-right {
+    gap: 5px;
+  }
+
+  .board {
+    gap: 5px;
+    margin-bottom: 24px;
+  }
+
+  .tile {
+    border-radius: 7px;
+  }
+
+  .tile.active {
+    border-width: 3px;
+  }
+
+  .key-row {
+    gap: 4px;
+  }
+
+  .keyboard {
+    gap: 7px;
+  }
+}
